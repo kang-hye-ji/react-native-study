@@ -1,20 +1,26 @@
 import React from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, StyleSheet } from 'react-native';
+import AuthButton from '../components/auth/AuthButton';
+import AuthLayout from '../components/auth/AuthLayout';
+
+const styles = StyleSheet.create({
+  loginLink: { color: 'blue', fontWeight: '600', marginTop: 10 },
+});
 
 export default function Welcome({ navigation }) {
+  const goToCreateAccount = () => navigation.navigate('CreateAccount');
+  const goToLogin = () => navigation.navigate('Login');
+
   return (
-    <View>
-      <Text>Welcome</Text>
-      <TouchableOpacity onPress={() => navigation.navigate('CreateAccount')}>
-        <View>
-          <Text>Go to Create Account</Text>
-        </View>
+    <AuthLayout>
+      <AuthButton
+        onPress={goToCreateAccount}
+        disabled="false"
+        text="Create new Account"
+      ></AuthButton>
+      <TouchableOpacity onPress={goToLogin}>
+        <Text style={styles.loginLink}>Log in</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-        <View>
-          <Text>Go to Create Log in</Text>
-        </View>
-      </TouchableOpacity>
-    </View>
+    </AuthLayout>
   );
 }
