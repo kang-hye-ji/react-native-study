@@ -1,18 +1,13 @@
 import AppLoading from 'expo-app-loading';
 import React, { useState } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Appearance,
-  useColorScheme,
-} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as Font from 'expo-font';
 import { Asset } from 'expo-asset';
 import LoggedOutNav from './navigators/LoggedOutNav';
 import { NavigationContainer } from '@react-navigation/native';
 import { NativeBaseProvider } from 'native-base';
+import LoggedInNav from './navigators/LoggedInNav';
+import { isLoggedIn } from './auth/logIn';
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -36,16 +31,10 @@ export default function App() {
     );
   }
 
-  console.log(Appearance.getColorScheme());
-  const light = Appearance.getColorScheme() === 'light';
-  // const subscription = Appearance.addChangeListener(({ colorScheme }) => {
-  //   console.log(colorScheme);
-  // });
-
   return (
     <NativeBaseProvider>
       <NavigationContainer>
-        <LoggedOutNav />
+        {isLoggedIn ? <LoggedInNav /> : <LoggedOutNav />}
       </NavigationContainer>
     </NativeBaseProvider>
   );
